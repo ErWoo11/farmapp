@@ -1,0 +1,32 @@
+{
+  "amarillo": {
+    "nombre": "D. Francisco C. y Dña. Josefa V. Godoy Sánchez",
+    "dir": "Avda. Miguel Hernández, 13",
+    "tel": "955870648",
+    "color": "#ffe066"
+  },
+  "azul": {
+    "nombre": "D. Juan A. Mendoza Mandado",
+    "dir": "Avda. Pablo Iglesias, 59",
+    "tel": "955871928",
+    "color": "#70c3ff"
+  },
+  "gris": {
+    "nombre": "D. Francisco de Borja Molina Cerrato",
+    "dir": "Marismillas, 1 (Junto al Mercadona)",
+    "tel": "955870587",
+    "color": "#c7c7c7"
+  },
+  "rojo": {
+    "nombre": "Lcda. Adela Puig Hidalgo",
+    "dir": "C/ Maestro Juan Marín de Vargas, 10",
+    "tel": "955871107",
+    "color": "#ff6b6b"
+  },
+  "naranja": {
+    "nombre": "Dña. Mª Rosario Corrales Márquez",
+    "dir": "C/ Antonio Machado, 19",
+    "tel": "955871016",
+    "color": "#ffa94d"
+  }
+}
