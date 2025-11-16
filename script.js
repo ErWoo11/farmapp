@@ -7,7 +7,7 @@ const pharmacies2026 = {
     },
     blue: {
         name: "D. Juan A. Mendoza Mandado",
-        address: "Avda. Pablo Iglesias, 59 Las Cabezas de San Jua",
+        address: "Avda. Pablo Iglesias, 59 Las Cabezas de San Juan",
         phone: "955871928"
     },
     gray: {
