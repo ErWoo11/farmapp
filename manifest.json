@@ -1,9 +1,0 @@
-{
-  "name": "Farmacia Guardia 2026",
-  "short_name": "Farmacia2026",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f0f4f8",
-  "theme_color": "#2a9d8f",
-  "icons": []
-}
