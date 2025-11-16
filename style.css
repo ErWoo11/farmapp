@@ -57,7 +57,7 @@ header h2 {
 }
 
 .app-logo {
-    height: 512px; /* Ajusta este valor según el tamaño deseado */
+    height: 192px; /* Ajusta este valor según el tamaño deseado */
     width: auto;
     display: inline-block;
 }

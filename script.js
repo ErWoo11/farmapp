@@ -12,7 +12,7 @@ const pharmacies2026 = {
     },
     gray: {
         name: "D. Francisco de Borja Molina Cerrato",
-        address: "C/ Marismillas, 1 Las Cabezas de San Juan (Junto al Mercadona)",
+        address: "C/ Marismillas, 1 Las Cabezas de San Juan",
         phone: "955870587"
     },
     red: {
