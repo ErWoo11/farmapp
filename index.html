@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmApp - Farmacias de Guardia</title>
-    
-    <!-- Favicon estándar (pestaña del navegador) -->
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
-    
-    <!-- Icono para "Añadir a pantalla de inicio" (iOS, Android, PWA) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png">
-    
-    <!-- Icono para Android (PWA) -->
-    <link rel="manifest" href="manifest.json">
-    
-    <link rel="stylesheet" href="style.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmApp - Farmacias de Guardia</title>
+
+    <!-- Favicon (pestaña del navegador) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
+
+    <!-- Iconos para dispositivos móviles (iOS, Android) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png">
+
+    <!-- Manifest para PWA (instalación como app) -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-    <div class="logo-container">
-        <img src="logo.png" alt="FarmApp Logo" class="app-logo">
-    </div>
-    <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
-    <h2>Las Cabezas de San Juan (Sevilla)</h2>
-</header>
+            <div class="logo-container">
+                <img src="logo.png" alt="FarmApp Logo" class="app-logo">
+            </div>
+            <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
+        </header>
 
         <div class="calendar-controls">
             <button id="prev-month" class="nav-btn">
@@ -44,7 +39,7 @@
         </div>
 
         <div id="calendar-container">
-            <!-- Calendario -->
+            <!-- El calendario se generará aquí con JavaScript -->
         </div>
 
         <div id="pharmacy-info">
