@@ -150,7 +150,7 @@ function selectDay(event) {
     const infoDiv = document.getElementById('pharmacy-info');
     if (pharmacy) {
         const encodedAddress = encodeURIComponent(pharmacy.address);
-        const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}`;
+        const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}+ Las Cabezas de San Juan`;
 
         infoDiv.innerHTML = `
             <h3>Farmacia de Guardia</h3>
