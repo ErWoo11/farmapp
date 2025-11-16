@@ -8,16 +8,34 @@
 </head>
 <body>
     <div class="container">
-        <h1>FarmApp</h1>
-        <h2>Farmacias de Guardia 2026</h2>
-        <div id="calendar-container">
-            <!-- El calendario se generará dinámicamente con JavaScript -->
+        <header>
+    <div class="logo-container">
+        <img src="logo.png" alt="FarmApp Logo" class="app-logo">
+    </div>
+    <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
+    <h2>Las Cabezas de San Juan (Sevilla)</h2>
+</header>
+
+        <div class="calendar-controls">
+            <button id="prev-month" class="nav-btn">
+                <i class="arrow">‹</i>
+            </button>
+            <h3 id="current-month-title">Cargando...</h3>
+            <button id="next-month" class="nav-btn">
+                <i class="arrow">›</i>
+            </button>
         </div>
+
+        <div id="calendar-container">
+            <!-- Calendario -->
+        </div>
+
         <div id="pharmacy-info">
-            <h3>Información de la farmacia de guardia</h3>
-            <p>Selecciona un día en el calendario para ver la información.</p>
+            <h3>Selecciona un día</h3>
+            <p>Elige una fecha en el calendario para ver la farmacia de guardia (solo disponible para 2026).</p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
