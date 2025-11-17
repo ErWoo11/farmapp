@@ -54,9 +54,6 @@ const now = new Date();
 let currentYear = now.getFullYear(); // Ej: 2025
 let currentMonthIndex = now.getMonth(); // Ej: 10 (noviembre)
 
-// Forzar a 2026 si quieres, o dejar dinámico. Aquí lo dejamos dinámico.
-// Pero si solo tienes datos para 2026, advertiremos cuando no esté disponible.
-
 function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
@@ -121,7 +118,7 @@ function renderCalendar(year, monthIndex) {
         daysGrid.appendChild(dayDiv);
     }
 
-    // Actualizar botones (solo permitimos navegación dentro de 2025-2026, por ejemplo)
+    // Actualizar botones de navegación
     document.getElementById('prev-month').disabled = (year === 2025 && monthIndex === 0);
     document.getElementById('next-month').disabled = (year === 2026 && monthIndex === 11);
 }
@@ -141,25 +138,24 @@ function selectDay(event) {
 
     const infoDiv = document.getElementById('pharmacy-info');
     if (pharmacy) {
-        // Codificar la dirección para usar en URL
-const encodedAddress = encodeURIComponent(pharmacy.address);
-const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}`;
+        const encodedAddress = encodeURIComponent(pharmacy.address);
+        const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}`;
 
-infoDiv.innerHTML = `
-    <h3>Farmacia de Guardia</h3>
-    <p><strong>Nombre:</strong> ${pharmacy.name}</p>
-    <p><strong>Dirección:</strong> 
-        <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
-            ${pharmacy.address}
-        </a>
-    </p>
-    <p><strong>Teléfono:</strong> ${pharmacy.phone}</p>
-    <p><strong>Día:</strong> ${day} de ${month.charAt(0).toUpperCase() + month.slice(1)} de ${year}</p>
-`;
+        infoDiv.innerHTML = `
+            <h3>Farmacia de Guardia</h3>
+            <p><strong>Nombre:</strong> ${pharmacy.name}</p>
+            <p><strong>Dirección:</strong> ${pharmacy.address}
+                <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-link">
+                    Ver en mapa
+                </a>
+            </p>
+            <p><strong>Teléfono:</strong> ${pharmacy.phone}</p>
+            <p><strong>Día:</strong> ${day} de ${month.charAt(0).toUpperCase() + month.slice(1)} de ${year}</p>
+        `;
     }
 }
 
-// Navegación
+// Navegación entre meses
 document.getElementById('prev-month').addEventListener('click', () => {
     if (currentMonthIndex > 0) {
         currentMonthIndex--;
@@ -171,7 +167,6 @@ document.getElementById('prev-month').addEventListener('click', () => {
 });
 
 document.getElementById('next-month').addEventListener('click', () => {
-    const maxMonth = (currentYear === 2026) ? 11 : 11; // puedes ampliar si quieres más años
     if (currentMonthIndex < 11) {
         currentMonthIndex++;
     } else if (currentYear < 2026) {
@@ -181,7 +176,61 @@ document.getElementById('next-month').addEventListener('click', () => {
     renderCalendar(currentYear, currentMonthIndex);
 });
 
-// Iniciar la app
+// === ✨ NUEVO: Funcionalidad del menú de ajustes (engranaje) ===
 document.addEventListener('DOMContentLoaded', () => {
+    // Renderizar calendario inicial
     renderCalendar(currentYear, currentMonthIndex);
+
+    // Elementos del modal
+    const settingsBtn = document.getElementById('settings-btn');
+    const modal = document.getElementById('settings-modal');
+    const overlay = document.getElementById('modal-overlay');
+    const closeBtn = document.getElementById('close-settings');
+    const shareBtn = document.getElementById('share-app');
+
+    if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn) {
+        console.warn('Algunos elementos del menú de ajustes no se encontraron. Asegúrate de que index.html esté actualizado.');
+        return;
+    }
+
+    // Abrir/cerrar modal
+    const openSettings = () => {
+        modal.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeSettings = () => {
+        modal.classList.add('hidden');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    };
+
+    settingsBtn.addEventListener('click', openSettings);
+    closeBtn.addEventListener('click', closeSettings);
+    overlay.addEventListener('click', closeSettings);
+
+    // Compartir aplicación
+    shareBtn.addEventListener('click', () => {
+        const url = window.location.href;
+        const text = '¡Consulta las farmacias de guardia en Las Cabezas de San Juan con FarmApp!';
+
+        if (navigator.share) {
+            navigator.share({ title: 'FarmApp', text, url })
+                .catch(() => fallbackShare(url));
+        } else {
+            fallbackShare(url);
+        }
+    });
+
+    function fallbackShare(url) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Enlace copiado al portapapeles.\n¡Pégalo en WhatsApp, Telegram o donde quieras!');
+            });
+        } else {
+            prompt('Copia y comparte este enlace:', url);
+        }
+        closeSettings();
+    }
 });

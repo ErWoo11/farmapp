@@ -20,19 +20,31 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     padding: 25px;
+    position: relative;
 }
 
-header h1 {
-    text-align: center;
-    font-size: 2.2em;
-    color: #27ae60;
-    margin-bottom: 8px;
-    font-weight: 700;
+/* === Botón de ajustes (engranaje) === */
+.settings-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #284e88;
+    transition: background 0.2s;
+    z-index: 10;
 }
 
-header h1 i {
-    margin-right: 10px;
-    color: #2ecc71;
+.settings-btn:hover {
+    background: rgba(40, 78, 136, 0.1);
 }
 
 header h2 {
@@ -41,6 +53,18 @@ header h2 {
     font-weight: 400;
     margin-bottom: 25px;
     font-size: 1.2em;
+    margin-top: 20px;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.app-logo {
+    height: 192px;
+    width: auto;
+    display: inline-block;
 }
 
 .calendar-controls {
@@ -51,25 +75,12 @@ header h2 {
     gap: 15px;
 }
 
-.logo-container {
-    text-align: center;
-    margin-bottom: 12px;
-}
-
-.app-logo {
-    height: 192px; /* Ajusta este valor según el tamaño deseado */
-    width: auto;
-    display: inline-block;
-}
-
-/* Flechas sin iconos externos */
 .nav-btn .arrow {
     font-size: 24px;
     font-weight: bold;
     line-height: 1;
 }
 
-/* Estilo para días sin datos (ej. 2025) */
 .day.no-data {
     background-color: #f0f0f0;
     color: #999;
@@ -186,7 +197,7 @@ header h2 {
     transform: scale(1.05);
 }
 
-/* Colores de farmacias - tonos suaves y legibles */
+/* Colores de farmacias */
 .day.yellow { background-color: #fff9c4; color: #5d4037; }
 .day.blue { background-color: #bbdefb; color: #0d47a1; }
 .day.gray { background-color: #e0e0e0; color: #424242; }
@@ -217,6 +228,85 @@ header h2 {
     color: #2c3e50;
 }
 
+/* === Estilos del modal de ajustes === */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 1002;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background: #deeffd;
+    color: #284e88;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.modal-btn:hover {
+    background: #c5e1f7;
+}
+
+.close-btn {
+    background: #f8f9fa;
+    color: #6c757d;
+}
+
+.close-btn:hover {
+    background: #e9ecef;
+}
+
+/* Estilo para la información en ajustes */
+.modal-info {
+    text-align: center;
+    margin: 15px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.modal-info p {
+    margin: 6px 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .container {
@@ -224,10 +314,26 @@ header h2 {
         border-radius: 12px;
     }
 
-    header h1 { font-size: 1.8em; }
-    header h2 { font-size: 1em; }
+    .settings-btn {
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
 
-    .nav-btn { width: 40px; height: 40px; font-size: 16px; }
+    header h2 {
+        font-size: 1em;
+        margin-top: 15px;
+    }
 
-    .day { font-size: 0.85em; }
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .day {
+        font-size: 0.85em;
+    }
 }

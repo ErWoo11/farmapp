@@ -25,6 +25,11 @@
                 <img src="logo.png" alt="FarmApp Logo" class="app-logo">
             </div>
             <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
+            
+            <!-- Botón de ajustes (engranaje) -->
+            <button id="settings-btn" class="settings-btn" aria-label="Ajustes">
+                ⚙️
+            </button>
         </header>
 
         <div class="calendar-controls">
@@ -46,6 +51,26 @@
             <p>Elige una fecha en el calendario para ver la farmacia de guardia (solo disponible para 2026).</p>
         </div>
     </div>
+
+    <!-- Modal de ajustes -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Ajustes</h3>
+            <button id="share-app" class="modal-btn">
+                Compartir aplicación
+            </button>
+            <div class="modal-info">
+                <p>Versión: 1.0</p>
+                <p>Autor: JTEJBAE ©</p>
+            </div>
+            <button id="close-settings" class="modal-btn close-btn">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay para el modal -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
 
     <script src="script.js"></script>
 </body>
