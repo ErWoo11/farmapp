@@ -2,30 +2,36 @@
 const pharmacies2026 = {
     yellow: {
         name: "D. Francisco C. y Dña. Josefa V. Godoy Sánchez",
-        address: "Avda. Miguel Hernández, 13 Las Cabezas de San Juan",
+        displayAddress: "Avda. Miguel Hernández, 13",
+        mapsAddress: "Farmacia Godoy, C.B., Las Cabezas de San Juan, Sevilla",
         phone: "955870648"
     },
     blue: {
         name: "D. Juan A. Mendoza Mandado",
-        address: "Avda. Pablo Iglesias, 59 Las Cabezas de San Juan",
+        displayAddress: "Avda. Pablo Iglesias, 59",
+        mapsAddress: "FARMACIA MENDOZA, Las Cabezas de San Juan, Sevilla",
         phone: "955871928"
     },
     gray: {
         name: "D. Francisco de Borja Molina Cerrato",
-        address: "C/ Marismillas, 1 Las Cabezas de San Juan",
+        displayAddress: "C/ Marismillas, 1 (Junto al Mercadona)",
+        mapsAddress: "Farmacia 365 Las Cabezas de San Juan, Las Cabezas de San Juan, Sevilla",
         phone: "955870587"
     },
     red: {
         name: "Lcda. Adela Puig Hidalgo",
-        address: "C/ Maestro Juan Marín de Vargas, 10 Las Cabezas de San Juan",
+        displayAddress: "C/ Maestro Juan Marín de Vargas, 10",
+        mapsAddress: "FARMACIA LDA. ADELA PUIG HIDALGO, Las Cabezas de San Juan, Sevilla",
         phone: "955871107"
     },
     orange: {
         name: "Dña. Mª Rosario Corrales Márquez",
-        address: "C/ Antonio Machado, 19 Las Cabezas de San Juan",
+        displayAddress: "C/ Antonio Machado, 19",
+        mapsAddress: "FARMACIA ROSARIO CORRALES MÁRQUEZ - RCFARMA, Las Cabezas de San Juan, Sevilla",
         phone: "955871016"
     },
 };
+
 
 // --- Datos de 2026 ---
 const calendarData2026 = {
@@ -130,13 +136,14 @@ function selectDay(event) {
     const infoDiv = document.getElementById('pharmacy-info');
     
     if (pharmacy) {
-        const encodedAddress = encodeURIComponent(pharmacy.address);
-        const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}`;
+        // Usar mapsAddress para el enlace, displayAddress para el texto
+        const encodedMapsAddress = encodeURIComponent(pharmacy.mapsAddress);
+        const mapsUrl = `https://www.google.com/maps?q=${encodedMapsAddress}`;
 
         infoDiv.innerHTML = `
             <h3>Farmacia de Guardia</h3>
             <p><strong>Nombre:</strong> ${pharmacy.name}</p>
-            <p><strong>Dirección:</strong> ${pharmacy.address}
+            <p><strong>Dirección:</strong> ${pharmacy.displayAddress}
                 <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-link">
                     Ver en mapa
                 </a>
@@ -146,6 +153,7 @@ function selectDay(event) {
         `;
     }
 }
+
 
 // Navegación
 document.getElementById('prev-month').addEventListener('click', () => {
