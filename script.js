@@ -144,8 +144,11 @@ function selectDay(event) {
             <h3>Farmacia de Guardia</h3>
             <p><strong>Nombre:</strong> ${pharmacy.name}</p>
             <p><strong>Dirección:</strong> ${pharmacy.displayAddress}</p>
-            <p><a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-link">
-                    Ver en mapa</a></p>
+<p>
+    <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-link">
+        🗺️ Ver en mapa
+    </a>
+</p>
             <p><strong>Teléfono:</strong> ${pharmacy.phone}</p>
             <p><strong>Día:</strong> ${day} de ${month.charAt(0).toUpperCase() + month.slice(1)} de ${year}</p>
         `;
