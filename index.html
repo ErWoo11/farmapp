@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmApp - Farmacias de Guardia</title>
 
-    <!-- 🔑 Metaetiquetas esenciales para iOS (modo app standalone) -->
+    <!-- Metaetiquetas para iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="FarmApp">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -26,7 +26,7 @@
             </div>
             <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
             
-            <!-- Botón de ajustes (engranaje) -->
+            <!-- Botón de ajustes -->
             <button id="settings-btn" class="settings-btn" aria-label="Ajustes">
                 ⚙️
             </button>
@@ -43,7 +43,7 @@
         </div>
 
         <div id="calendar-container">
-            <!-- El calendario se generará con JavaScript -->
+            <!-- Calendario -->
         </div>
 
         <div id="pharmacy-info">
@@ -52,7 +52,8 @@
         </div>
     </div>
 
-    <!-- Modal de ajustes -->
+    <!-- ✅ Orden correcto: overlay primero, modal después -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
     <div id="settings-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Ajustes</h3>
@@ -68,9 +69,6 @@
             </button>
         </div>
     </div>
-
-    <!-- Overlay para el modal -->
-    <div id="modal-overlay" class="modal-overlay hidden"></div>
 
     <script src="script.js"></script>
 </body>

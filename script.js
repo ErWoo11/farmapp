@@ -49,17 +49,15 @@ const monthNamesES = [
     'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
 ];
 
-// Obtener fecha actual del sistema
 const now = new Date();
-let currentYear = now.getFullYear(); // Ej: 2025
-let currentMonthIndex = now.getMonth(); // Ej: 10 (noviembre)
+let currentYear = now.getFullYear();
+let currentMonthIndex = now.getMonth();
 
 function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
 
 function getFirstDayOfWeek(year, month) {
-    // Lunes = 0
     const firstDay = new Date(year, month, 1).getDay();
     return (firstDay === 0) ? 6 : firstDay - 1;
 }
@@ -73,7 +71,6 @@ function renderCalendar(year, monthIndex) {
     
     const firstDayOffset = getFirstDayOfWeek(year, monthIndex);
 
-    // Actualizar título y año
     document.getElementById('current-month-title').textContent = 
         monthNameES.charAt(0).toUpperCase() + monthNameES.slice(1);
     document.getElementById('display-year').textContent = year;
@@ -90,14 +87,12 @@ function renderCalendar(year, monthIndex) {
 
     const daysGrid = document.getElementById('days-grid');
 
-    // Espacios vacíos al inicio
     for (let i = 0; i < firstDayOffset; i++) {
         const empty = document.createElement('div');
         empty.className = 'day empty';
         daysGrid.appendChild(empty);
     }
 
-    // Días del mes
     for (let day = 1; day <= daysInMonth; day++) {
         const dayDiv = document.createElement('div');
         
@@ -110,15 +105,12 @@ function renderCalendar(year, monthIndex) {
             dayDiv.addEventListener('click', selectDay);
         } else {
             dayDiv.className = 'day no-data';
-            dayDiv.textContent = day;
-            // Sin evento ni datos
         }
 
         dayDiv.textContent = day;
         daysGrid.appendChild(dayDiv);
     }
 
-    // Actualizar botones de navegación
     document.getElementById('prev-month').disabled = (year === 2025 && monthIndex === 0);
     document.getElementById('next-month').disabled = (year === 2026 && monthIndex === 11);
 }
@@ -135,8 +127,8 @@ function selectDay(event) {
     );
 
     const pharmacy = pharmacies2026[color];
-
     const infoDiv = document.getElementById('pharmacy-info');
+    
     if (pharmacy) {
         const encodedAddress = encodeURIComponent(pharmacy.address);
         const mapsUrl = `https://www.google.com/maps?q=${encodedAddress}`;
@@ -155,7 +147,7 @@ function selectDay(event) {
     }
 }
 
-// Navegación entre meses
+// Navegación
 document.getElementById('prev-month').addEventListener('click', () => {
     if (currentMonthIndex > 0) {
         currentMonthIndex--;
@@ -176,24 +168,22 @@ document.getElementById('next-month').addEventListener('click', () => {
     renderCalendar(currentYear, currentMonthIndex);
 });
 
-// === ✨ NUEVO: Funcionalidad del menú de ajustes (engranaje) ===
+// === ✨ Menú de ajustes (engranaje) ===
 document.addEventListener('DOMContentLoaded', () => {
-    // Renderizar calendario inicial
     renderCalendar(currentYear, currentMonthIndex);
 
-    // Elementos del modal
     const settingsBtn = document.getElementById('settings-btn');
     const modal = document.getElementById('settings-modal');
     const overlay = document.getElementById('modal-overlay');
     const closeBtn = document.getElementById('close-settings');
     const shareBtn = document.getElementById('share-app');
+    const modalContent = document.querySelector('.modal-content');
 
-    if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn) {
-        console.warn('Algunos elementos del menú de ajustes no se encontraron. Asegúrate de que index.html esté actualizado.');
+    if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn || !modalContent) {
+        console.warn('Faltan elementos del menú de ajustes');
         return;
     }
 
-    // Abrir/cerrar modal
     const openSettings = () => {
         modal.classList.remove('hidden');
         overlay.classList.remove('hidden');
@@ -209,6 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
     settingsBtn.addEventListener('click', openSettings);
     closeBtn.addEventListener('click', closeSettings);
     overlay.addEventListener('click', closeSettings);
+
+    // 🔑 ¡Clave! Evita que el clic en el contenido cierre el modal
+    modalContent.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 
     // Compartir aplicación
     shareBtn.addEventListener('click', () => {
