@@ -1,18 +1,19 @@
 {
   "name": "FarmApp",
   "short_name": "FarmApp",
-  "start_url": "/index.html",
+  "description": "Farmacias de guardia en Andalucía",
+  "start_url": "/farmapp/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#284e88",
   "icons": [
     {
-      "src": "/assets/logo-192.png",
+      "src": "/farmapp/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/logo-512.png",
+      "src": "/farmapp/logo-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
