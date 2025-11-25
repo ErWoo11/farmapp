@@ -47,15 +47,6 @@ body {
     background: rgba(40, 78, 136, 0.1);
 }
 
-header h1 {
-    text-align: center;
-    color: #7f8c8d;
-    font-weight: 700;
-    margin-bottom: 25px;
-    font-size: 2em;
-    margin-top: 20px;
-}
-
 header h2 {
     text-align: center;
     color: #7f8c8d;
@@ -305,12 +296,6 @@ header h2 {
 
 .modal-info p {
     margin: 6px 0;
-}
-
-.modal-info .info-strong {
-    font-weight: bold;
-    font-size: 15px; /* un poco más grande que el texto base */
-    color: #333;     /* opcional: más oscuro para resaltar */
 }
 
 .hidden {

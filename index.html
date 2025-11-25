@@ -3,74 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmApp - Farmacias de Guardia</title>
+    <title>FarmApp - Andalucía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f8fbf8 0%, #deeffd 100%);
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            width: 90%;
+            position: relative;
+        }
 
-    <!-- Metaetiquetas para iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="FarmApp">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        /* Botón de ajustes en index.html */
+        .settings-btn-index {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #284e88;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+        }
 
-    <!-- Iconos -->
-    <link rel="apple-touch-icon" href="logo-512.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+        .settings-btn-index:hover {
+            background: rgba(40, 78, 136, 0.1);
+        }
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="style.css">
+        /* Logo PWA responsive */
+        .logo-pwa {
+            max-width: 200px;
+            height: auto;
+            width: 50%;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .logo-pwa {
+                max-width: 160px;
+                width: 60%;
+            }
+        }
+
+        @media (max-height: 600px) and (max-width: 400px) {
+            .logo-pwa {
+                max-width: 120px;
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #284e88;
+        }
+        select {
+            width: 100%;
+            padding: 14px;
+            margin: 15px 0;
+            border: 2px solid #284e88;
+            border-radius: 12px;
+            font-size: 18px;
+            background: #deeffd;
+            color: #284e88;
+            cursor: pointer;
+        }
+        button {
+            background: #284e88;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            max-width: 250px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1e3a66;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        /* === Estilos del modal de ajustes === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .modal-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #deeffd;
+            color: #284e88;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s;
+        }
+
+        .modal-btn:hover {
+            background: #c5e1f7;
+        }
+
+        .close-btn {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .close-btn:hover {
+            background: #e9ecef;
+        }
+
+        .modal-info {
+            text-align: center;
+            margin: 15px 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .modal-info p {
+            margin: 6px 0;
+        }
+
+        .info-strong {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo-container">
-                <img src="logo.png" alt="FarmApp Logo" class="app-logo">
-            </div>
-	    <h1>Las Cabezas de San Juan</h1>
-            <h2>Farmacias de Guardia • <span id="display-year">2026</span></h2>
-            
-            <!-- Botón de ajustes -->
-            <button id="settings-btn" class="settings-btn" aria-label="Ajustes">
-                ⚙️
-            </button>
-        </header>
+        <!-- Botón de ajustes (engranaje) -->
+        <button id="settings-btn" class="settings-btn-index" aria-label="Ajustes">
+            ⚙️
+        </button>
 
-        <div class="calendar-controls">
-            <button id="prev-month" class="nav-btn">
-                <i class="arrow">‹</i>
-            </button>
-            <h3 id="current-month-title">Cargando...</h3>
-            <button id="next-month" class="nav-btn">
-                <i class="arrow">›</i>
-            </button>
-        </div>
+        <img src="logo.png" alt="FarmApp Logo" class="logo-pwa">
+        <h1>Farmacias de Guardia en Andalucía</h1>
 
-        <div id="calendar-container">
-            <!-- Calendario -->
-        </div>
+        <select id="pueblo-select">
+            <option value="">— Selecciona un pueblo —</option>
+            <optgroup label="Sevilla">
+                <option value="andalucia/sevilla/lascabezas.html">Las Cabezas de San Juan</option>
+		<option value="andalucia/sevilla/lebrija.html">Lebrija</option>
+		<option value="andalucia/sevilla/elcuervo.html">El Cuervo</option>
+                <!-- Añadir más pueblos aquí -->
+            </optgroup>
+	    <optgroup label="Cádiz">
+                <option value="andalucia/cadiz/trebujena.html">Trebujena</option>
+            </optgroup>
 
-        <div id="pharmacy-info">
-            <h3>Selecciona un día</h3>
-            <p>Elige una fecha en el calendario para ver la farmacia de guardia (solo disponible para 2026).</p>
-        </div>
+        </select>
+
+        <button id="ir-btn" disabled>Ver farmacias</button>
+
+        <p class="footer">Selecciona un pueblo para consultar sus farmacias de guardia.</p>
     </div>
 
-    <!-- ✅ Orden correcto: overlay primero, modal después -->
+    <!-- Modal de ajustes -->
     <div id="modal-overlay" class="modal-overlay hidden"></div>
     <div id="settings-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Ajustes</h3>
             <button id="share-app" class="modal-btn">
-                Compartir aplicación
+                📲 Compartir aplicación
+            </button>
+            <button id="contact-btn" class="modal-btn">
+                📧 Contactar
             </button>
             <div class="modal-info">
-                <p>Versión: <span class="info-strong"> 1.0</span></p>
-                <p>Autor: <span class="info-strong"> JTEJBAE ©</span></p>
+                <p>Versión: <span class="info-strong">1.0</span></p>
+                <p>Autor: <span class="info-strong">JTEJBAE ©</span></p>
             </div>
             <button id="close-settings" class="modal-btn close-btn">
-                Cerrar
+               ✖️ Cerrar
             </button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // === Navegación principal ===
+        const select = document.getElementById('pueblo-select');
+        const button = document.getElementById('ir-btn');
+
+        select.addEventListener('change', () => {
+            button.disabled = !select.value;
+        });
+
+        button.addEventListener('click', () => {
+            if (select.value) {
+                window.location.href = select.value;
+            }
+        });
+
+        select.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && select.value) {
+                window.location.href = select.value;
+            }
+        });
+
+        // === Menú de ajustes ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const settingsBtn = document.getElementById('settings-btn');
+            const modal = document.getElementById('settings-modal');
+            const overlay = document.getElementById('modal-overlay');
+            const closeBtn = document.getElementById('close-settings');
+            const shareBtn = document.getElementById('share-app');
+            const contactBtn = document.getElementById('contact-btn');
+            const modalContent = document.querySelector('.modal-content');
+
+            if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn || !contactBtn || !modalContent) return;
+
+            const openSettings = () => {
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeSettings = () => {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            };
+
+            settingsBtn.addEventListener('click', openSettings);
+            closeBtn.addEventListener('click', closeSettings);
+            overlay.addEventListener('click', closeSettings);
+            modalContent.addEventListener('click', (e) => e.stopPropagation());
+
+            // Compartir
+            shareBtn.addEventListener('click', () => {
+                const url = window.location.href;
+                const text = '¡Consulta las farmacias de guardia en Andalucía con FarmApp!';
+                if (navigator.share) {
+                    navigator.share({ title: 'FarmApp', text, url })
+                        .catch(() => fallbackShare(url));
+                } else {
+                    fallbackShare(url);
+                }
+            });
+
+            // Contactar
+            contactBtn.addEventListener('click', () => {
+                window.location.href = 'mailto:latribu_woo11@hotmail.com';
+                closeSettings();
+            });
+
+            function fallbackShare(url) {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Enlace copiado al portapapeles.\n¡Pégalo en WhatsApp, Telegram o donde quieras!');
+                    });
+                } else {
+                    prompt('Copia y comparte este enlace:', url);
+                }
+                closeSettings();
+            }
+        });
+    </script>
 </body>
 </html>
