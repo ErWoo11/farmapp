@@ -313,17 +313,51 @@
             overlay.addEventListener('click', closeSettings);
             modalContent.addEventListener('click', (e) => e.stopPropagation());
 
-            // Compartir
-            shareBtn.addEventListener('click', () => {
-                const url = window.location.href;
-                const text = '¡Consulta las farmacias de guardia en Andalucía con FarmApp!';
-                if (navigator.share) {
-                    navigator.share({ title: 'FarmApp', text, url })
-                        .catch(() => fallbackShare(url));
-                } else {
-                    fallbackShare(url);
-                }
+// Compartir
+shareBtn.addEventListener('click', async () => {
+    const url = window.location.href;
+    const text = '¡Consulta las farmacias de guardia en Andalucía con FarmApp!';
+
+    if (navigator.share) {
+        // Intentar añadir el logo si el navegador lo permite
+        let files = [];
+
+        try {
+            // Asegúrate de que la ruta del logo sea accesible (puede ser relativa o absoluta)
+            const logoUrl = '/farmapp/logo.png';
+            const response = await fetch(logoUrl);
+            
+            if (response.ok) {
+                const blob = await response.blob();
+                const file = new File([blob], '/farmapp/logo.png', { type: 'image/png' });
+                files = [file];
+            }
+        } catch (err) {
+            console.warn('No se pudo cargar el logo para compartir:', err);
+            // Continuamos sin el logo
+        }
+
+        // Compartir con o sin logo
+        try {
+            await navigator.share({
+                title: 'FarmApp',
+                text,
+                url,
+                files: files.length ? files : undefined // Solo incluir si hay archivos
             });
+        } catch (error) {
+            // Si falla (por ejemplo, por falta de soporte de archivos), reintentar sin logo
+            if (error.name === 'AbortError') {
+                // Usuario canceló: no hacer nada
+                return;
+            }
+            console.warn('Error al compartir con archivo, intentando sin logo:', error);
+            fallbackShare(url);
+        }
+    } else {
+        fallbackShare(url);
+    }
+});
 
             // Contactar
             contactBtn.addEventListener('click', () => {
