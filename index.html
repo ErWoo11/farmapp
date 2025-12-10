@@ -324,12 +324,12 @@ shareBtn.addEventListener('click', async () => {
 
         try {
             // Asegúrate de que la ruta del logo sea accesible (puede ser relativa o absoluta)
-            const logoUrl = '/farmapp/logo.png';
+            const logoUrl = 'logo-512.png';
             const response = await fetch(logoUrl);
             
             if (response.ok) {
                 const blob = await response.blob();
-                const file = new File([blob], '/farmapp/logo.png', { type: 'image/png' });
+                const file = new File([blob], 'logo-512.png', { type: 'image/png' });
                 files = [file];
             }
         } catch (err) {
