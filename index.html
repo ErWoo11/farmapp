@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmApp - Farmacias de Guardia</title>
+    <title>GUARDIA FARMA - Farmacias de Guardia</title>
 
 <link rel="manifest" href="manifest.json">
 
     <!-- Metaetiquetas para iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="FarmApp">
+    <meta name="apple-mobile-web-app-title" content="GUARDIA FARMA">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Iconos -->
@@ -68,27 +68,28 @@
             background: rgba(40, 78, 136, 0.1);
         }
 
-        /* Logo PWA responsive */
-        .logo-pwa {
-            max-width: 200px;
-            height: auto;
-            width: 50%;
-            margin-bottom: 25px;
-        }
+/* Logo PWA responsive - MÁS GRANDE */
+.logo-pwa {
+    max-width: 280px;        /* Aumentado de 200px a 280px */
+    height: auto;
+    width: 70%;              /* Ocupa más ancho */
+    margin: 30px auto 25px;  /* Centrado con margin auto */
+    display: block;
+}
 
-        @media (max-width: 600px) {
-            .logo-pwa {
-                max-width: 160px;
-                width: 60%;
-            }
-        }
+@media (max-width: 600px) {
+    .logo-pwa {
+        max-width: 220px;    /* Aumentado de 160px a 220px */
+        width: 80%;
+    }
+}
 
-        @media (max-height: 600px) and (max-width: 400px) {
-            .logo-pwa {
-                max-width: 120px;
-            }
-        }
-
+@media (max-height: 600px) and (max-width: 400px) {
+    .logo-pwa {
+        max-width: 160px;    /* Aumentado de 120px a 160px */
+        margin-top: 20px;
+    }
+}
         h1 {
             font-size: 28px;
             margin-bottom: 20px;
@@ -220,7 +221,7 @@
             ⚙️
         </button>
 
-        <img src="logo.png" alt="FarmApp Logo" class="logo-pwa">
+        <img src="logo.png" alt="GUARDIA FARMA Logo" class="logo-pwa">
         <h1>Farmacias de Guardia en Andalucía</h1>
 
         <select id="pueblo-select">
@@ -316,7 +317,7 @@
 // Compartir
 shareBtn.addEventListener('click', async () => {
     const url = window.location.href;
-    const text = '¡Consulta las farmacias de guardia en Andalucía con FarmApp!';
+    const text = '¡Consulta las farmacias de guardia en Andalucía con GUARDIA FARMA!';
 
     if (navigator.share) {
         // Intentar añadir el logo si el navegador lo permite
@@ -340,7 +341,7 @@ shareBtn.addEventListener('click', async () => {
         // Compartir con o sin logo
         try {
             await navigator.share({
-                title: 'FarmApp',
+                title: 'GUARDIA FARMA',
                 text,
                 url,
                 files: files.length ? files : undefined // Solo incluir si hay archivos

@@ -1,6 +1,6 @@
 {
-  "name": "FarmApp",
-  "short_name": "FarmApp",
+  "name": "GUARDIA FARMA",
+  "short_name": "GUARDIA FARMA",
   "description": "Farmacias de guardia en Andalucía",
   "start_url": "/farmapp/",
   "display": "standalone",
