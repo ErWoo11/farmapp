@@ -96,11 +96,21 @@ header h2 {
     margin-bottom: 12px;
 }
 
+/* Logo más grande en todas las páginas */
 .app-logo {
-    height: 192px;
+    height: 280px; /* Aumentado de 192px a 280px */
     width: auto;
     display: inline-block;
+    margin-bottom: 20px;
 }
+
+/* En móviles pequeños, un poco más pequeño */
+@media (max-width: 600px) {
+    .app-logo {
+        height: 220px; /* Ajustado para móviles */
+    }
+}
+
 
 .calendar-controls {
     display: flex;
