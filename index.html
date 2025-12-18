@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUARDIA FARMA - Farmacias de Guardia</title>
 
-<link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">
 
     <!-- Metaetiquetas para iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,28 +68,28 @@
             background: rgba(40, 78, 136, 0.1);
         }
 
-/* Logo PWA responsive - MÁS GRANDE */
-.logo-pwa {
-    max-width: 280px;        /* Aumentado de 200px a 280px */
-    height: auto;
-    width: 70%;              /* Ocupa más ancho */
-    margin: 30px auto 25px;  /* Centrado con margin auto */
-    display: block;
-}
+        /* Logo PWA responsive - MÁS GRANDE */
+        .logo-pwa {
+            max-width: 280px;
+            height: auto;
+            width: 70%;
+            margin: 30px auto 25px;
+            display: block;
+        }
 
-@media (max-width: 600px) {
-    .logo-pwa {
-        max-width: 220px;    /* Aumentado de 160px a 220px */
-        width: 80%;
-    }
-}
+        @media (max-width: 600px) {
+            .logo-pwa {
+                max-width: 220px;
+                width: 80%;
+            }
+        }
 
-@media (max-height: 600px) and (max-width: 400px) {
-    .logo-pwa {
-        max-width: 160px;    /* Aumentado de 120px a 160px */
-        margin-top: 20px;
-    }
-}
+        @media (max-height: 600px) and (max-width: 400px) {
+            .logo-pwa {
+                max-width: 160px;
+                margin-top: 20px;
+            }
+        }
         h1 {
             font-size: 28px;
             margin-bottom: 20px;
@@ -228,14 +228,12 @@
             <option value="">— Selecciona un pueblo —</option>
             <optgroup label="Sevilla">
                 <option value="andalucia/sevilla/lascabezas.html">Las Cabezas de San Juan</option>
-		<option value="andalucia/sevilla/lebrija.html">Lebrija</option>
-		<option value="andalucia/sevilla/elcuervo.html">El Cuervo</option>
-                <!-- Añadir más pueblos aquí -->
+                <option value="andalucia/sevilla/lebrija.html">Lebrija</option>
+                <option value="andalucia/sevilla/elcuervo.html">El Cuervo</option>
             </optgroup>
-	    <optgroup label="Cádiz">
+            <optgroup label="Cádiz">
                 <option value="andalucia/cadiz/trebujena.html">Trebujena</option>
             </optgroup>
-
         </select>
 
         <button id="ir-btn" disabled>Ver farmacias</button>
@@ -248,18 +246,24 @@
     <div id="settings-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Ajustes</h3>
+            <button id="install-guide-btn" class="modal-btn">
+                📃 Cómo instalar la app
+            </button>
             <button id="share-app" class="modal-btn">
                 📲 Compartir aplicación
             </button>
             <button id="contact-btn" class="modal-btn">
                 📧 Contactar
             </button>
+            <button id="donate-btn" class="modal-btn">
+                ☕ Donar para apoyar el proyecto
+            </button>
             <div class="modal-info">
                 <p>Versión: <span class="info-strong">1.0</span></p>
                 <p>Autor: <span class="info-strong">JTEJBAE ©</span></p>
             </div>
             <button id="close-settings" class="modal-btn close-btn">
-               ✖️ Cerrar
+                ✖️ Cerrar
             </button>
         </div>
     </div>
@@ -293,9 +297,11 @@
             const closeBtn = document.getElementById('close-settings');
             const shareBtn = document.getElementById('share-app');
             const contactBtn = document.getElementById('contact-btn');
+            const installGuideBtn = document.getElementById('install-guide-btn');
+            const donateBtn = document.getElementById('donate-btn');
             const modalContent = document.querySelector('.modal-content');
 
-            if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn || !contactBtn || !modalContent) return;
+            if (!settingsBtn || !modal || !overlay || !closeBtn || !shareBtn || !contactBtn || !installGuideBtn || !donateBtn || !modalContent) return;
 
             const openSettings = () => {
                 modal.classList.remove('hidden');
@@ -314,55 +320,59 @@
             overlay.addEventListener('click', closeSettings);
             modalContent.addEventListener('click', (e) => e.stopPropagation());
 
-// Compartir
-shareBtn.addEventListener('click', async () => {
-    const url = window.location.href;
-    const text = '¡Consulta las farmacias de guardia en Andalucía con GUARDIA FARMA!';
-
-    if (navigator.share) {
-        // Intentar añadir el logo si el navegador lo permite
-        let files = [];
-
-        try {
-            // Asegúrate de que la ruta del logo sea accesible (puede ser relativa o absoluta)
-            const logoUrl = 'logo-512.png';
-            const response = await fetch(logoUrl);
-            
-            if (response.ok) {
-                const blob = await response.blob();
-                const file = new File([blob], 'logo-512.png', { type: 'image/png' });
-                files = [file];
-            }
-        } catch (err) {
-            console.warn('No se pudo cargar el logo para compartir:', err);
-            // Continuamos sin el logo
-        }
-
-        // Compartir con o sin logo
-        try {
-            await navigator.share({
-                title: 'GUARDIA FARMA',
-                text,
-                url,
-                files: files.length ? files : undefined // Solo incluir si hay archivos
+            // === Guía de instalación ===
+            installGuideBtn.addEventListener('click', () => {
+                window.open('instalar-pwa.html', '_blank');
+                closeSettings();
             });
-        } catch (error) {
-            // Si falla (por ejemplo, por falta de soporte de archivos), reintentar sin logo
-            if (error.name === 'AbortError') {
-                // Usuario canceló: no hacer nada
-                return;
-            }
-            console.warn('Error al compartir con archivo, intentando sin logo:', error);
-            fallbackShare(url);
-        }
-    } else {
-        fallbackShare(url);
-    }
-});
 
-            // Contactar
+            // === Compartir ===
+            shareBtn.addEventListener('click', async () => {
+                const url = window.location.href;
+                const text = '¡Consulta las farmacias de guardia en Andalucía con GUARDIA FARMA!';
+
+                if (navigator.share) {
+                    let files = [];
+                    try {
+                        const logoUrl = 'logo-512.png';
+                        const response = await fetch(logoUrl);
+                        if (response.ok) {
+                            const blob = await response.blob();
+                            const file = new File([blob], 'logo-512.png', { type: 'image/png' });
+                            files = [file];
+                        }
+                    } catch (err) {
+                        console.warn('No se pudo cargar el logo para compartir:', err);
+                    }
+
+                    try {
+                        await navigator.share({
+                            title: 'GUARDIA FARMA',
+                            text,
+                            url,
+                            files: files.length ? files : undefined
+                        });
+                    } catch (error) {
+                        if (error.name !== 'AbortError') {
+                            console.warn('Error al compartir con archivo, intentando sin logo:', error);
+                            fallbackShare(url);
+                        }
+                    }
+                } else {
+                    fallbackShare(url);
+                }
+            });
+
+            // === Contactar ===
             contactBtn.addEventListener('click', () => {
                 window.location.href = 'mailto:latribu_woo11@hotmail.com';
+                closeSettings();
+            });
+
+            // === Donar ===
+            donateBtn.addEventListener('click', () => {
+                // 🔗 ¡REEMPLAZA ESTE ENLACE POR TU ENLACE REAL DE DONACIÓN!
+                window.open('https://paypal.me/tu-usuario', '_blank');
                 closeSettings();
             });
 
